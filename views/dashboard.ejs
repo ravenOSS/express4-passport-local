@@ -1,0 +1,21 @@
+<% include _header %>
+
+    <p><h1>Welcome: <%= user %></h1></p>
+    <h1><%= title %></h1>
+
+    <div class="container">
+
+    <% errors.forEach(function(error) { %>
+    <div class="alert alert-danger" role="alert">
+      <%= error %>
+    </div>
+    <% }) %>
+
+    <% infos.forEach(function(info) { %>
+    <div class="alert alert-info" role="alert">
+      <%= info %>
+    </div>
+    <% }) %>
+  </div>
+
+<% include _footer %>
