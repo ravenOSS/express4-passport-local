@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-let dbURI = 'mongodb://192.168.0.101/totpone';
+let dbURI = process.env.DB_localURI;
 
 if (process.env.NODE_ENV === 'production') {
-  dbURI = process.env.MONGODB_URI;
+  dbURI = process.env.DB_atlasURI;
 }
 // added qualifiers to stop mongoose deprecation warnings
 mongoose.connect(dbURI, { useNewUrlParser: true });

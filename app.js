@@ -1,3 +1,4 @@
+var dotenv = require('dotenv').config();
 var express = require('express');
 var bodyParser = require('body-parser');
 var createError = require('http-errors');

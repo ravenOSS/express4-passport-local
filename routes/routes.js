@@ -28,7 +28,7 @@ router.get('/dashboard', isLoggedIn, function (req, res, next) {
 
 /* GET login page. */
 router.get('/login', function (req, res, next) {
-  res.render('login', { title: 'Login Page', message: req.flash('noUserMessage') });
+  res.render('login', { title: 'Login Page', message: req.flash('loginMessage') });
 });
 
 /* Authenticate the login */
