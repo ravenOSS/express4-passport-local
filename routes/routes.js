@@ -9,7 +9,7 @@ router.get('/', function (req, res, next) {
 
 /* GET registration page */
 router.get('/register', function (req, res, next) {
-  res.render('register', { title: 'Registration Page' });
+  res.render('register', { title: 'Registration Page', message: req.flash('registerMessage') });
 });
 
 /* POST registration */
@@ -28,14 +28,15 @@ router.get('/dashboard', isLoggedIn, function (req, res, next) {
 
 /* GET login page. */
 router.get('/login', function (req, res, next) {
-  res.render('login', { title: 'Login Page' });
+  res.render('login', { title: 'Login Page', message: req.flash('noUserMessage') });
 });
 
 /* Authenticate the login */
 router.post('/login',
-  passport.authenticate('login', { successRedirect: '/dashboard',
-    failureRedirect: '/login',
-    failureFlash: true })
+  passport.authenticate('login',
+    { successRedirect: '/dashboard',
+      failureRedirect: '/login',
+      failureFlash: true })
 );
 
 /* GET logout */

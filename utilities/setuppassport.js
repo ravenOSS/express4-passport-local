@@ -13,39 +13,10 @@ passport.deserializeUser(function (id, done) { // user id ??
   });
 });
 
-// Using named strategy "login". Default strategy = local
-passport.use('login', new LocalStrategy({
-  passReqToCallback: true
-},
-function (req, username, password, done) {
-  User.findOne({
-    username: username
-  }, function (err, user) { // Uses mongoose method findOne
-    if (err) {
-      return done(err);
-    }
-    if (!user) {
-      return done(null, false, {
-        message: 'No user of that username!'
-      });
-    }
-
-    user.checkPassword(password, function (err, isMatch) {
-      if (err) {
-        return done(err);
-      }
-      if (isMatch) {
-        return done(null, user);
-      } else {
-        return done(null, false, {
-          message: 'Invalid password.'
-        });
-      }
-    });
-  });
-}));
-
+// Using named strategy "register". Default strategy = local
 passport.use('register', new LocalStrategy({
+  usernameField: 'username',
+  passwordField: 'password',
   passReqToCallback: true
 },
 function (req, username, password, done) {
@@ -57,23 +28,44 @@ function (req, username, password, done) {
         return done(err);
       }
       if (user) {
-        return done(null, false, {
-          message: 'User already exists'
-        });
+        return done(null, false, req.flash('registerMessage', 'User already exists'));
       } else {
         var newUser = new User({
           username: username,
           password: password
         });
         newUser.save(function (err) {
-          if (err) {
+          if (err) 
             throw err;
-            return done(null, newUser);
-          }
+          return done(null, newUser);
         });
       }
     });
   });
 }));
+
+// Using named strategy "login". Default strategy = local
+passport.use('login', new LocalStrategy({
+  usernameField: 'username',
+  passwordField: 'password',
+  passReqToCallback: true
+},
+function (req, username, password, done) {
+  User.findOne({
+    username: username
+  }, function (err, user) {
+    if (err) {
+      return done(err);
+    }
+    if (!user) {
+      return done(null, false, req.flash('loginMessage', 'No user found'));
+    }
+    if (!user.checkPassword(password)) {
+      return done(null, false, req.flash('loginMessage', 'Wrong password!!'));
+    }
+    return done(null, user);
+  });
+}));
+
 /* Export passport functions */
 module.exports = passport;

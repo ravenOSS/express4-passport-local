@@ -21,8 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(cookieParser());
+// app.use(cookieParser()); Not required with express-sesssion. May lead to errors.
 
+// Production app requires session storage (MongoDB/Redis) not memory store
 app.use(session({
   secret: 'a top secret secret',
   cookie: { secure: false, maxAge: null },

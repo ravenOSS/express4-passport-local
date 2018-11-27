@@ -1,8 +1,15 @@
-<% include _header %>
+<% include partials/_header %>
 
 <div class="container">
   <h2><%= title %></h2>
 
+  <!-- show any messages that come back with authentication -->
+  <div class="col-sm-6">
+    <% if (message.length > 0) { %>
+    <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+  </div>
+  
   <form action="/login" method="post">
     <div class="form-group">
       <label for="username">Username</label>
@@ -22,5 +29,5 @@
       <button type="submit" value="Log In" class="btn btn-primary">Submit</button>
   </form>
 
-  <% include _footer %>
+  <% include partials/_footer %>
 </div>
