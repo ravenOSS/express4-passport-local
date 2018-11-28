@@ -54,4 +54,18 @@ function isLoggedIn (req, res, next) {
   res.redirect('/login');
 }
 
+/* GET register2 page */
+router.get('/register2', function (req, res, next) {
+  res.render('register2', { title: 'Registration Page', message: req.flash('registerMessage') });
+});
+
+/* POST registration */
+router.post('/register2',
+  passport.authenticate('register', {
+    successRedirect: '/dashboard',
+    successFlash: true,
+    failureRedirect: '/register2',
+    failureFlash: true })
+);
+
 module.exports = router;

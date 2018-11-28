@@ -35,9 +35,11 @@ function (req, username, password, done) {
           password: password
         });
         newUser.save(function (err) {
-          if (err) 
+          if (err) {
             throw err;
-          return done(null, newUser);
+          } else {
+            return done(null, newUser);
+          }
         });
       }
     });
