@@ -1,5 +1,6 @@
 let mongoose = require('mongoose');
 let bcrypt = require('bcrypt-nodejs');
+let SALT_FACTOR = 12;
 
 let userSchema = mongoose.Schema({
   username: { type: String, required: true, unique: true },
@@ -8,7 +9,7 @@ let userSchema = mongoose.Schema({
   totp_active: { type: Boolean, default: false }
 });
 
-// generating a hash
+/* generating a hash
 userSchema.methods.generateHash = function (password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(12), null);
 };
@@ -17,8 +18,7 @@ userSchema.methods.generateHash = function (password) {
 userSchema.methods.validPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
-
-/*
+*/
 var noop = function () {};
 
 userSchema.pre('save', function (done) {
@@ -45,7 +45,7 @@ userSchema.methods.checkPassword = function (guess, done) {
 userSchema.methods.name = function () {
   return this.displayName || this.username;
 };
-*/
+
 var User = mongoose.model('User', userSchema);
 
 module.exports = User;

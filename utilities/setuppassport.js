@@ -62,7 +62,7 @@ function (req, username, password, done) {
     if (!user) {
       return done(null, false, req.flash('loginMessage', 'No user found'));
     }
-    if (!user.validPassword(password)) {
+    if (!user.checkPassword(password)) {
       return done(null, false, req.flash('loginMessage', 'Wrong password!!'));
     }
     return done(null, user);

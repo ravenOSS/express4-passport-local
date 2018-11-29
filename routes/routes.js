@@ -68,4 +68,67 @@ router.post('/register2',
     failureFlash: true })
 );
 
+router.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 module.exports = router;
+
+/* GET home page. */
+/*
+router.get('/', function (req, res, next) {
+  res.render('index', { title: 'Express4-Passport-Local' });
+});
+*/
+
+/*
+function isLoggedIn (req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    req.flash('info', 'You must be logged in.');
+    res.redirect('/');
+  }
+}
+*/
+
+/*
+router.use(function (req, res, next) {
+  res.locals.currentUser = req.user;
+  res.locals.errors = req.flash('error');
+  res.locals.infos = req.flash('info');
+  next();
+});
+*/
+
+/* render datatable page. */
+/*
+router.get('/table', isLoggedIn, function (req, res, next) {
+  res.render('userdetail', { title: 'dataTable' });
+});
+*/
+
+/* This is the api route to get the datatable ajax data */
+/*
+router.get('/usertable', function (req, res, next) {
+  User.find()
+    .sort({ createdAt: 'descending' })
+    .exec(function (err, users) {
+      if (err) { return next(err); }
+      res.json(users);
+    });
+});
+*/
+
+/* GET users listing. */
+/*
+router.get('/users', isLoggedIn, function (req, res, next) {
+  User.find()
+    .sort({ createdAt: 'descending' })
+    .exec(function (err, users) {
+      if (err) { return next(err); }
+      res.render('userlist', { users: users });
+    });
+});
+*/
