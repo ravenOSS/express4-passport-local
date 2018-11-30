@@ -9,7 +9,6 @@ var passport = require('passport');
 var path = require('path');
 var routes = require('./routes/routes');
 require('./database/db');
-// var setupPassport = require('./utilities/setuppassport');
 var session = require('express-session');
 
 var app = express();
@@ -35,7 +34,6 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-// setupPassport();
 
 app.use(routes);
 
@@ -56,3 +54,14 @@ app.use(function (err, req, res, next) {
 });
 
 module.exports = app;
+/*
+app.use(flash());
+
+app.use(function(req, res, next){
+ res.locals.success_message = req.flash('success_message');
+ res.locals.error_message = req.flash('error_message');
+ res.locals.error = req.flash('error');
+ res.locals.user = req.user || null;
+ next();
+});
+*/

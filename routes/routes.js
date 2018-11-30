@@ -1,10 +1,17 @@
 var express = require('express');
 var router = express.Router();
-var passport = require('../utilities/setuppassport');
+var passport = require('../utilities/passport');
+
+router.use(function (req, res, next) {
+  res.locals.currentUser = req.username;
+  res.locals.errors = req.flash('error');
+  res.locals.infos = req.flash('info');
+  next();
+});
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express4-Passport-Local' });
+  res.render('frontpage', { title: 'Banco del Oro' });
 });
 
 /* GET registration page */
@@ -70,34 +77,17 @@ router.post('/register2',
 
 router.use(function (req, res, next) {
   res.locals.currentUser = req.user;
+  res.locals.errors = req.flash('error');
+  res.locals.infos = req.flash('info');
   next();
 });
 
 module.exports = router;
 
-/* GET home page. */
-/*
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express4-Passport-Local' });
-});
-*/
-
-/*
-function isLoggedIn (req, res, next) {
-  if (req.isAuthenticated()) {
-    next();
-  } else {
-    req.flash('info', 'You must be logged in.');
-    res.redirect('/');
-  }
-}
-*/
-
 /*
 router.use(function (req, res, next) {
   res.locals.currentUser = req.user;
-  res.locals.errors = req.flash('error');
-  res.locals.infos = req.flash('info');
+
   next();
 });
 */
