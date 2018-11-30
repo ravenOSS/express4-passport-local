@@ -29,7 +29,7 @@ router.post('/register',
 );
 
 /* GET dashboard page */
-router.get('/dashboard', isLoggedIn, function (req, res, next) {
+router.get('/dashboard', ensureAuthenticated, function (req, res, next) {
   res.render('dashboard', { title: 'You are logged in!', user: req.user.username });
 });
 
@@ -54,7 +54,7 @@ router.get('/logout', function (req, res) {
 });
 
 /* route middleware to make sure a user is logged in */
-function isLoggedIn (req, res, next) {
+function ensureAuthenticated (req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
@@ -94,7 +94,7 @@ router.use(function (req, res, next) {
 
 /* render datatable page. */
 /*
-router.get('/table', isLoggedIn, function (req, res, next) {
+router.get('/table', ensureAuthenticated, function (req, res, next) {
   res.render('userdetail', { title: 'dataTable' });
 });
 */
@@ -113,7 +113,7 @@ router.get('/usertable', function (req, res, next) {
 
 /* GET users listing. */
 /*
-router.get('/users', isLoggedIn, function (req, res, next) {
+router.get('/users', ensureAuthenticated, function (req, res, next) {
   User.find()
     .sort({ createdAt: 'descending' })
     .exec(function (err, users) {
