@@ -16,7 +16,7 @@ router.get('/', function (req, res, next) {
 
 /* GET registration page */
 router.get('/register', function (req, res, next) {
-  res.render('register', { title: 'Registration Page', message: req.flash('registerMessage') });
+  res.render('register2', { title: 'Registration Page', message: req.flash('registerMessage') });
 });
 
 /* POST registration */
