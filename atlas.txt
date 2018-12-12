@@ -2,6 +2,4 @@
 Mongo Shell
 mongo "mongodb://bancodeloro-shard-00-00-keebo.azure.mongodb.net:27017,bancodeloro-shard-00-01-keebo.azure.mongodb.net:27017,bancodeloro-shard-00-02-keebo.azure.mongodb.net:27017/test?replicaSet=bancoDelOro-shard-0" --ssl --authenticationDatabase admin --username cftw_2018 --password QfpiTfhJ6NUlyo2h
 
-npm i express -g
 
-express --view ejs --git bdo_

@@ -3,13 +3,13 @@ var router = express.Router();
 var passport = require('../utilities/passport');
 
 router.use(function (req, res, next) {
-  res.locals.currentUser = req.username;
+  res.locals.user = req.username;
   res.locals.errors = req.flash('error');
   res.locals.infos = req.flash('info');
   next();
 });
 
-/* GET home page. */
+/* GET frontpage. */
 router.get('/', function (req, res, next) {
   res.render('frontpage', { title: 'Banco del Oro' });
 });
@@ -28,11 +28,6 @@ router.post('/register',
     failureFlash: true })
 );
 
-/* GET dashboard page */
-router.get('/dashboard', ensureAuthenticated, function (req, res, next) {
-  res.render('dashboard', { title: 'You are logged in!', user: req.user.username });
-});
-
 /* GET login page. */
 router.get('/login', function (req, res, next) {
   res.render('login', { title: 'Login Page', message: req.flash('loginMessage') });
@@ -40,12 +35,16 @@ router.get('/login', function (req, res, next) {
 
 /* Authenticate the login */
 router.post('/login',
-  passport.authenticate('login',
+  passport.authenticate('login)',
     { successRedirect: '/dashboard',
       failureRedirect: '/login',
       failureFlash: true })
 );
 
+/* GET dashboard page */
+router.get('/dashboard', ensureAuthenticated, function (req, res, next) {
+  res.render('dashboard', { title: 'You are logged in!' });
+});
 /* GET logout */
 router.get('/logout', function (req, res) {
   req.logout();
@@ -83,14 +82,6 @@ router.use(function (req, res, next) {
 });
 
 module.exports = router;
-
-/*
-router.use(function (req, res, next) {
-  res.locals.currentUser = req.user;
-
-  next();
-});
-*/
 
 /* render datatable page. */
 /*
